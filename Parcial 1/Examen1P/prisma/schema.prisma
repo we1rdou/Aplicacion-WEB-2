@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Sucursal {
+  chone
+  manta
+  porto
+  closed
+}
+
+model Cocinero {
+  idcocinero    Int     @id @default(autoincrement())
+  nombre        String 
+  apellido      String
+  cargo         String
+  sueldo        Float
+  sucursal      Sucursal
+  preparacion   Preparacion[]
+}
+
+model Receta {
+  idreceta      Int      @id @default(autoincrement())
+  nombrePlato   String
+  categoria     String
+  ingredientes  String[]
+  calorias      String
+  sucursal      Sucursal
+  preparacion   Preparacion[]
+}
+
+model Preparacion {
+  idpreparacion         Int      @id @default(autoincrement())
+  receta               Receta   @relation(fields: [receta_idreceta], references: [idreceta])
+  receta_idreceta      Int
+  cocinero             Cocinero @relation(fields: [cocinero_idcocinero], references: [idcocinero])
+  cocinero_idcocinero  Int
+  fecha                String
+  hora                 String
+  cantidadProductos    Int
+  costo                Float
+  tiempoEstimado       Int
+  sucursal             Sucursal
+}
