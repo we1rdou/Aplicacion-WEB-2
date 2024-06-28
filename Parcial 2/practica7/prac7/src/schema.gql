@@ -1,0 +1,113 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Receta {
+  idreceta: ID!
+  nombrePlato: String!
+  categoria: String!
+  ingredientes: [String!]!
+  calorias: String!
+  estado: String!
+  preparaciones: [Preparacion!]!
+}
+
+type Preparacion {
+  idpreparacion: ID!
+  receta: Receta!
+  cocinero: Cocinero!
+  fecha: String!
+  hora: String!
+  cantidadProductos: Int!
+  costo: Float!
+  tiempoEstimado: Int!
+  estado: String!
+}
+
+type Cocinero {
+  idcocinero: ID!
+  nombre: String!
+  apellido: String!
+  cargo: String!
+  sueldo: Float!
+  estado: String!
+  preparaciones: [Preparacion!]!
+}
+
+type Query {
+  cocineros(estado: String! = "activo"): [Cocinero!]!
+  cocinero(id: Int!): Cocinero!
+  recetas(estado: String! = "activo"): [Receta!]!
+  receta(id: Int!): Receta!
+  preparaciones(estado: String): [Preparacion!]!
+  preparacion(id: ID!): Preparacion!
+}
+
+type Mutation {
+  createCocinero(createCocineroInput: CreateCocineroInput!): Cocinero!
+  updateCocinero(updateCocineroInput: UpdateCocineroInput!): Cocinero!
+  removeCocinero(id: Int!): Cocinero!
+  createReceta(createRecetaInput: CreateRecetaInput!): Receta!
+  updateReceta(updateRecetaInput: UpdateRecetaInput!): Receta!
+  removeReceta(id: Int!): Receta!
+  createPreparacion(createPreparacionInput: CreatePreparacionInput!): Preparacion!
+  updatePreparacion(updatePreparacionInput: UpdatePreparacionInput!): Preparacion!
+  removePreparacion(id: ID!): Preparacion!
+}
+
+input CreateCocineroInput {
+  nombre: String!
+  apellido: String!
+  cargo: String!
+  sueldo: Float!
+  estado: String!
+}
+
+input UpdateCocineroInput {
+  nombre: String
+  apellido: String
+  cargo: String
+  sueldo: Float
+  estado: String
+  idcocinero: ID!
+}
+
+input CreateRecetaInput {
+  nombrePlato: String!
+  categoria: String!
+  ingredientes: [String!]!
+  calorias: String!
+  estado: String!
+}
+
+input UpdateRecetaInput {
+  nombrePlato: String
+  categoria: String
+  ingredientes: [String!]
+  calorias: String
+  estado: String
+  idreceta: ID!
+}
+
+input CreatePreparacionInput {
+  recetaId: Int!
+  cocineroId: Int!
+  fecha: String!
+  hora: String!
+  cantidadProductos: Int!
+  costo: Float!
+  tiempoEstimado: Int!
+  estado: String!
+}
+
+input UpdatePreparacionInput {
+  recetaId: Int
+  cocineroId: Int
+  fecha: String
+  hora: String
+  cantidadProductos: Int
+  costo: Float
+  tiempoEstimado: Int
+  estado: String
+  idpreparacion: Int!
+}
